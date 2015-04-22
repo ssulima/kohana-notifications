@@ -229,15 +229,15 @@ class Kohana_Notification_System_Mail extends Notification_System
                         /** @var Swift_Mailer $mailer */
                         $result = $mailer->send($message);
                         $this->notification_instance->log(Minion_CLI::color('OK', 'green') . ' (sent ' . $result . ' messages)');
+                        // Mark notifications as sent
+                        DB::update($this->table_name)
+                            ->set(array('processed' => $now))
+                            ->where('id', 'IN', array_keys($messages))
+                            ->execute($this->database);
                     } catch (Swift_TransportException $e) {
-                        Kohana::$log->add(Log::ERROR, $e);
+                        Kohana::$log->add(Log::ERROR, $e->getMessage());
                         $this->notification_instance->log(Minion_CLI::color('Failed (see log)', 'red'), true, null, Log::ERROR);
                     }
-
-                    DB::update($this->table_name)
-                        ->set(array('processed' => $now))
-                        ->where('id', 'IN', array_keys($messages))
-                        ->execute($this->database);
                 }
             }
 

@@ -26,6 +26,18 @@ return array
             // Email subject
             'subject' => 'Notification subject',
             // possible values: 'Smtp', 'Sendmail', 'Mail', 'LoadBalanced', 'Failover'
+            // Transport configuration templates:
+            // SMTP:
+            //     'transport_config' => array(
+            //         'host' => 'example.com',
+            //         'port' => '',
+            //         'username' => null,
+            //         'password' => null,
+            //     )
+            //
+            // SENDMAIL:
+            //     'transport_config' => '/usr/sbin/sendmail -bs'
+            //
             // @see 'TRANSPORT_*' consts in modules/notification/classes/Kohana/Notification/System/Mail.php
             // @see http://swiftmailer.org/docs/overview.html#transports
             'transport' => Notification_System_Mail::TRANSPORT_MAIL,
