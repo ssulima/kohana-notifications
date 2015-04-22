@@ -211,8 +211,10 @@ class Kohana_Notification
     }
 
     public function log($message, $endline = true, $vars = null, $type = Log::INFO) {
-        // Write message to STDOUT
-        Minion_CLI::write($message, $endline);
+        if (php_sapi_name() == 'cli') {
+            // Write message to STDOUT if executed in CLI
+            Minion_CLI::write($message, $endline);
+        }
         // Log message into file, but strip it from bash color codes first (if any)
         $this->log->add($type, preg_replace('/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/', '', $message), $vars);
     }
