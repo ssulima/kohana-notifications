@@ -134,6 +134,10 @@ class Kohana_Notification
      * Notification sending (may be different: email, RSS, others)
      * XXX: Could be modified to support partials, i.e. to not kill the script when
      *      there will be 100000 notifications waiting in the queue.
+     *
+     * @param bool $dry_run
+     *
+     * @throws Kohana_Exception
      */
     public function process($dry_run = false)
     {
