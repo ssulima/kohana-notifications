@@ -23,16 +23,6 @@ class Kohana_Notification
 
     protected $table_name;
 
-    public static $type_names = array(
-        self::TYPE_ERROR            => 'error',
-        self::TYPE_DEBUG            => 'debug',
-        self::TYPE_EMERGENCY        => 'emergency',
-        self::TYPE_WARNING          => 'warning',
-        self::TYPE_INFO             => 'information',
-        self::TYPE_LOGIN_FAILED     => 'login failed',
-        self::TYPE_ACCESS_DENIED    => 'access denied',
-    );
-
     /**
      * Get a singleton instance of Notification object
      *
@@ -219,6 +209,33 @@ class Kohana_Notification
         $this->log->add($type, preg_replace('/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/', '', $message), $vars);
     }
 
+    /**
+     * Moved from static class variable to static method for easy extending in child classes:
+     *
+     *     public static function type_names() {
+     *         return array_merge(
+     *             parent::type_names(),
+     *             array(
+     *                 self::TYPE_CUSTOM => 'custom',
+     *             )
+     *         );
+     *     }
+     *
+     * @return array
+     */
+    public static function type_names()
+    {
+        return array(
+            self::TYPE_ERROR => 'error',
+            self::TYPE_DEBUG => 'debug',
+            self::TYPE_EMERGENCY => 'emergency',
+            self::TYPE_WARNING => 'warning',
+            self::TYPE_INFO => 'information',
+            self::TYPE_LOGIN_FAILED => 'login failed',
+            self::TYPE_ACCESS_DENIED => 'access denied',
+        );
+    }
+
     public function getTableName() {
         return $this->table_name;
     }
@@ -227,9 +244,17 @@ class Kohana_Notification
         return $this->database;
     }
 
+    /**
+     * Tries to find human-readable name for the type.
+     * If given type could not be found - returns the type itself (the one given as an argument).
+     *
+     * @param $type
+     *
+     * @return mixed
+     */
     public static function getTypeName($type)
     {
-        return Arr::get(static::$type_names, $type);
+        return Arr::get(static::type_names(), $type, $type);
     }
 
 } // End Notification
