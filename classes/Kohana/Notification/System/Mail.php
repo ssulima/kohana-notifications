@@ -290,7 +290,7 @@ class Kohana_Notification_System_Mail extends Notification_System
                 return Swift_SendmailTransport::newInstance($config);
             default:
                 // For everything else (Mail, LoadBalanced and Failover):
-                return Swift_MailTransport::newInstance();
+                return Swift_MailTransport::newInstance($config);
         }
     }
 }

@@ -38,6 +38,9 @@ return array
             // SENDMAIL:
             //     'transport_config' => '/usr/sbin/sendmail -bs'
             //
+            // MAIL/NATIVE:
+            //     'transport_config' => '-f%s'
+            //
             // @see 'TRANSPORT_*' consts in modules/notification/classes/Kohana/Notification/System/Mail.php
             // @see http://swiftmailer.org/docs/overview.html#transports
             'transport' => Notification_System_Mail::TRANSPORT_MAIL,
