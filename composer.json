@@ -1,0 +1,12 @@
+{
+  "name": "ssulima/kohana-notifications",
+  "description": "Simple, yet unfinished, notification system for Kohana 3.3",
+  "type": "kohana-module",
+  "authors": [
+    {
+      "name": "Sebastian Sulima",
+      "email": "git@sebastiansulima.pl"
+    }
+  ],
+  "require": {}
+}
